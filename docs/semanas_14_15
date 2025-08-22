@@ -1,0 +1,42 @@
+
+## **Semana 14: Mechanistic Interpretability and Neural Circuit Discovery**
+
+**Enfoque:** La revolución de la interpretabilidad mecanística representa el avance conceptual más significativo en XAI, transformando el paradigma de preguntar "¿qué características importan?" a "¿cómo computa el modelo sus salidas?"
+
+**Temas clave:**
+- **Automated Circuit Discovery (ACDC):** Técnicas para identificar automáticamente circuitos neurales que implementan comportamientos específicos en modelos transformer
+- **Sparse Autoencoders (SAEs):** Métodos para abordar la "hipótesis de superposición" y descomponer neuronas polisemánticas en características interpretables
+- **Path Patching y PatchScopes:** Frameworks para rastrear el flujo de información a través de rutas computacionales específicas
+- **Linear Representation Hypothesis:** Validación empírica de que las características se codifican como direcciones lineales en el espacio de activación
+
+**Lecturas:**
+- Nanda et al., 2023 (Progress Measures for Grokking via Mechanistic Interpretability)
+- Conmy et al., 2023 (Towards Automated Circuit Discovery for Mechanistic Interpretability) 
+- Bricken et al., 2023 (Towards Monosemanticity: Decomposing Language Models With Dictionary Learning)
+- Geva et al., 2023 (Dissecting Recall of Factual Associations in Auto-Regressive Language Models)
+
+---
+
+## **Semana 15: Multimodal XAI and Advanced Evaluation Frameworks**
+
+**Enfoque:** Los modelos multimodales como GPT-4V, LLaVA y BLIP presentan desafíos únicos de interpretabilidad que requieren nuevos métodos y frameworks de evaluación revolucionarios.
+
+**Temas clave:**
+- **MAIA Framework:** Primer sistema automatizado para experimentos de interpretabilidad en modelos multimodales que genera hipótesis, ejecuta experimentos y actualiza comprensión sin intervención humana
+- **Cross-modal Attention Analysis:** Análisis de cómo las capas superficiales se enfocan en alineación cross-modal mientras las capas profundas realizan refinamiento específico de tareas
+- **Hallucination Explanation:** Técnicas como Residual Visual Decoding para mitigar 24% del contenido alucinado y identificación de "universal attention heads" con funciones especializadas
+- **F-Fidelity Framework:** Revolución en evaluación de XAI que resuelve problemas fundamentales de distribución y fuga de información en métricas tradicionales
+- **M4 Unified Benchmark:** Primer framework integral de evaluación across múltiples métricas, modalidades y arquitecturas
+
+**Lecturas:**
+- Tsai et al., 2023 (MAIA: Multimodal Automated Interpretability Agent)
+- Zhou et al., 2023 (Analyzing and Mitigating Object Hallucination in Large Vision-Language Models)  
+- Krishna et al., 2023 (Post hoc Explanations may be Ineffective for Detecting Unknown Spurious Correlation)
+- Liu et al., 2023 (M4: Multi-generator, Multi-domain, and Multi-lingual Black-Box Machine-Generated Text Detection)
+
+**Componente práctico:**
+- Laboratorio hands-on implementando MAIA para análisis automatizado de modelos vision-language
+- Ejercicios de cross-modal attention analysis identificando computational pathways
+- Evaluación práctica usando F-Fidelity y M4 benchmark para comparar métodos de explicación
+
+Esta semana se centra puramente en los aspectos técnicos más avanzados de XAI multimodal y los nuevos estándares de evaluación que están redefiniendo cómo medimos la calidad de las explicaciones.
