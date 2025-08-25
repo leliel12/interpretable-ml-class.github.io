@@ -9,8 +9,15 @@
   <div id="content"></div>
   <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
   <script>
-    document.getElementById('content').innerHTML =
-      marked.parse('# Marked in the browser\n\nRendered by **marked**.');
+		const response = await fetch('README.md');        
+        if (!response.ok) {
+            throw new Error(`Error al cargar README.md: ${response.status} ${response.statusText}`);
+        }
+        const markdownText = await response.text();
+        const htmlContent = marked.parse(markdownText);
+
+	  
+    document.getElementById('content').innerHTML = htmlContent;
   </script>
 </body>
 </html>
