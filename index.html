@@ -9,15 +9,42 @@
   <div id="content"></div>
   <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
   <script>
-		const response = await fetch('README.md');        
-        if (!response.ok) {
-            throw new Error(`Error al cargar README.md: ${response.status} ${response.statusText}`);
+        function loadReadme() {
+            try {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'README.md', false); // false hace que sea síncrono
+                xhr.send();
+                
+                if (xhr.status !== 200) {
+                    throw new Error(`Error al cargar README.md: ${xhr.status} ${xhr.statusText}`);
+                }
+                
+                const markdownText = xhr.responseText;
+                const htmlContent = marked.parse(markdownText);
+                
+                document.getElementById('content').innerHTML = htmlContent;
+                document.getElementById('content').classList.remove('loading');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('content').innerHTML = `
+                    <div class="error">
+                        <h3>Error al cargar README.md</h3>
+                        <p><strong>Mensaje:</strong> ${error.message}</p>
+                        <p><strong>Posibles soluciones:</strong></p>
+                        <ul>
+                            <li>Asegúrate de que existe un archivo README.md en el mismo directorio</li>
+                            <li>Ejecuta el HTML desde un servidor web (no como archivo local)</li>
+                            <li>Verifica que el servidor web esté configurado para servir archivos .md</li>
+                        </ul>
+                    </div>
+                `;
+                document.getElementById('content').classList.remove('loading');
+            }
         }
-        const markdownText = await response.text();
-        const htmlContent = marked.parse(markdownText);
-
-	  
-    document.getElementById('content').innerHTML = htmlContent;
-  </script>
+        
+        // Cargar el README cuando se carga la página
+        window.addEventListener('load', loadReadme);
+    </script>
 </body>
 </html>
