@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>Explainable AI Course</title>
+    <title id="pageTitle">PLACEHOLDER</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
     <style>
         * {
             margin: 0;
@@ -82,8 +84,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .loading-text {
@@ -120,7 +127,12 @@
         }
 
         /* Estilos para el contenido markdown */
-        #content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
+        #content h1,
+        #content h2,
+        #content h3,
+        #content h4,
+        #content h5,
+        #content h6 {
             color: #2e7d32;
             margin: 25px 0 15px 0;
             font-weight: 600;
@@ -139,7 +151,7 @@
 
         #content h3 {
             font-size: 1.5rem;
-            color: #43a047;
+            color: #326334;
         }
 
         #content p {
@@ -147,7 +159,8 @@
             color: #424242;
         }
 
-        #content ul, #content ol {
+        #content ul,
+        #content ol {
             margin: 15px 0 15px 30px;
             color: #424242;
         }
@@ -257,11 +270,12 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
-            <h1>🤖 Explainable AI Course</h1>
-            <p>Aprende sobre Inteligencia Artificial Explicable</p>
+            <h1 id="theTitle">PLACEHOLDER</h1>
+            <p id="theSubtitle">PLACEHOLDER</p>
         </div>
 
         <div id="content" class="loading">
@@ -272,6 +286,21 @@
 
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
     <script>
+        function updateTitles(title, subtitle) {
+
+            document.title = title.split(' ').slice(1).join(' ');
+
+            const headerTitle = document.getElementById('theTitle');
+            headerTitle.textContent = title;
+
+
+            const headerSubtitle = document.getElementById('theSubtitle');
+            headerSubtitle.textContent = subtitle;
+
+
+
+        }
+
         async function loadReadme() {
             try {
                 const response = await fetch('README.md');
@@ -283,8 +312,20 @@
                 const markdownText = await response.text();
                 const htmlContent = marked.parse(markdownText);
 
+                // Insertar el contenido HTML
                 document.getElementById('content').innerHTML = htmlContent;
                 document.getElementById('content').classList.remove('loading');
+
+                // Buscar el primer h1 en el contenido cargado y usar como título
+                const title = document.querySelector('#content h1');
+                const subtitle = document.querySelector('#content h2');
+
+                const realTitle = title.textContent.trim();
+                const realSubTitle = subtitle.textContent.trim();
+                updateTitles(realTitle, realSubTitle);
+
+                title.style.display = 'none';
+                subtitle.style.display = 'none';
 
             } catch (error) {
                 console.error('Error:', error);
@@ -301,6 +342,7 @@
                         </ul>
                     </div>
                 `;
+
                 document.getElementById('content').classList.remove('loading');
             }
         }
@@ -309,4 +351,5 @@
         window.addEventListener('load', loadReadme);
     </script>
 </body>
+
 </html>
