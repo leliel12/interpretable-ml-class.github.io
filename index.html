@@ -1,48 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Explainable AI Course</title>
-    <title>Marked in the browser</title>
+    <meta charset="utf-8">
+    <title>Explainable AI Course</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 50%, #a5d6a7 100%);
+            min-height: 100vh;
+            color: #2e7d32;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            margin: -20px -20px 40px -20px;
+            color: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        #content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        #content:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            flex-direction: column;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #c8e6c9;
+            border-top: 4px solid #4caf50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #388e3c;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .error {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border: 2px solid #f44336;
+            border-radius: 10px;
+            padding: 30px;
+            color: #c62828;
+        }
+
+        .error h3 {
+            color: #d32f2f;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .error p {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .error ul {
+            margin-left: 20px;
+        }
+
+        .error li {
+            margin-bottom: 8px;
+        }
+
+        /* Estilos para el contenido markdown */
+        #content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
+            color: #2e7d32;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        #content h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #4caf50;
+            padding-bottom: 10px;
+        }
+
+        #content h2 {
+            font-size: 2rem;
+            color: #388e3c;
+        }
+
+        #content h3 {
+            font-size: 1.5rem;
+            color: #43a047;
+        }
+
+        #content p {
+            margin-bottom: 16px;
+            color: #424242;
+        }
+
+        #content ul, #content ol {
+            margin: 15px 0 15px 30px;
+            color: #424242;
+        }
+
+        #content li {
+            margin-bottom: 8px;
+        }
+
+        #content code {
+            background: #e8f5e8;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        #content pre {
+            background: #f1f8e9;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border-left: 4px solid #4caf50;
+            margin: 20px 0;
+        }
+
+        #content pre code {
+            background: none;
+            padding: 0;
+            border: none;
+        }
+
+        #content blockquote {
+            border-left: 4px solid #4caf50;
+            background: #f9fff9;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #2e7d32;
+        }
+
+        #content a {
+            color: #388e3c;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        #content a:hover {
+            color: #2e7d32;
+            border-bottom-color: #4caf50;
+        }
+
+        #content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #content th {
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        #content td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        #content tr:nth-child(even) {
+            background: #f8fff8;
+        }
+
+        #content tr:hover {
+            background: #e8f5e8;
+            transition: background 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            #content {
+                padding: 20px;
+            }
+
+            #content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="content"></div>
-  <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
-  <script>
-        function loadReadme() {
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Explainable AI Course</h1>
+            <p>Aprende sobre Inteligencia Artificial Explicable</p>
+        </div>
+
+        <div id="content" class="loading">
+            <div class="spinner"></div>
+            <div class="loading-text">Cargando contenido...</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+    <script>
+        async function loadReadme() {
             try {
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', 'README.md', false); // false hace que sea síncrono
-                xhr.send();
-                
-                if (xhr.status !== 200) {
-                    throw new Error(`Error al cargar README.md: ${xhr.status} ${xhr.statusText}`);
+                const response = await fetch('README.md');
+
+                if (!response.ok) {
+                    throw new Error(`Error al cargar README.md: ${response.status} ${response.statusText}`);
                 }
-                
-                const markdownText = xhr.responseText;
+
+                const markdownText = await response.text();
                 const htmlContent = marked.parse(markdownText);
-                
+
                 document.getElementById('content').innerHTML = htmlContent;
                 document.getElementById('content').classList.remove('loading');
-                
+
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('content').innerHTML = `
                     <div class="error">
-                        <h3>Error al cargar README.md</h3>
+                        <h3>❌ Error al cargar README.md</h3>
                         <p><strong>Mensaje:</strong> ${error.message}</p>
                         <p><strong>Posibles soluciones:</strong></p>
                         <ul>
-                            <li>Asegúrate de que existe un archivo README.md en el mismo directorio</li>
-                            <li>Ejecuta el HTML desde un servidor web (no como archivo local)</li>
-                            <li>Verifica que el servidor web esté configurado para servir archivos .md</li>
+                            <li>✅ Asegúrate de que existe un archivo README.md en el mismo directorio</li>
+                            <li>🌐 Ejecuta el HTML desde un servidor web (no como archivo local)</li>
+                            <li>⚙️ Verifica que el servidor web esté configurado para servir archivos .md</li>
+                            <li>🔒 Comprueba los permisos del archivo README.md</li>
                         </ul>
                     </div>
                 `;
                 document.getElementById('content').classList.remove('loading');
             }
         }
-        
+
         // Cargar el README cuando se carga la página
         window.addEventListener('load', loadReadme);
     </script>
