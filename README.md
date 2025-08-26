@@ -24,7 +24,7 @@ Strong knowledge of machine learning, linear algebra, multivariable calculus, an
 
 - Doshi-Velez and Kim, 2017, [Towards a Rigorous Science of Interpretable Machine Learning](https://arxiv.org/abs/1702.08608)
 - Weller, 2019, [Transparency: Motivation and Challenges](https://arxiv.org/abs/1708.01870)
-Lipton, 2017, [The Mythos of Model Interpretability](https://arxiv.org/abs/1606.03490)
+- Lipton, 2017, [The Mythos of Model Interpretability](https://arxiv.org/abs/1606.03490)
 
 ### Slides
 

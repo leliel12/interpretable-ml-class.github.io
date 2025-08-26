@@ -268,19 +268,23 @@
                 font-size: 2rem;
             }
         }
+
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="header">
+        <div id="header", class="header hide">
             <h1 id="theTitle">PLACEHOLDER</h1>
             <p id="theSubtitle">PLACEHOLDER</p>
         </div>
 
         <div id="content" class="loading">
             <div class="spinner"></div>
-            <div class="loading-text">Cargando contenido...</div>
+            <div class="loading-text">Loading...</div>
         </div>
     </div>
 
@@ -315,6 +319,7 @@
                 // Insertar el contenido HTML
                 document.getElementById('content').innerHTML = htmlContent;
                 document.getElementById('content').classList.remove('loading');
+                document.getElementById('header').classList.remove('hide');
 
                 // Buscar el primer h1 en el contenido cargado y usar como título
                 const title = document.querySelector('#content h1');
