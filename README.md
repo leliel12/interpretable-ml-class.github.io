@@ -5,11 +5,12 @@
 
 <!-- BODY -->
 
-> Ver. 2026, [FAMAF-UNC](https://www.famaf.unc.edu.ar/)
+> Version. 2026, [FAMAF-UNC](https://www.famaf.unc.edu.ar/)
 
-# Syllabus: 📚
+# Links:
 
-**TENTATIVO:** [Explainable Artificial Intelligence](xai_course_program.md)
+- [Course Program 📚 (**Tentativo**)](xai_syllabus.md)
+- [Repository 📦](https://github.com/leliel12/xai/)
 
 # Overview: 🧉
 
