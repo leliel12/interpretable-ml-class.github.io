@@ -1,0 +1,307 @@
+/* Variables de colores */
+:root {
+    /* Verdes principales */
+    --primary-green: #4caf50;
+    --primary-green-dark: #388e3c;
+    --primary-green-darker: #2e7d32;
+    --primary-green-light: #a5d6a7;
+    --primary-green-lighter: #c8e6c9;
+    --primary-green-lightest: #e8f5e8;
+
+    /* Fondos y gradientes */
+    --bg-gradient: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 50%, #a5d6a7 100%);
+    --header-gradient: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+    --error-gradient: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+
+    /* Blancos y grises */
+    --white: #ffffff;
+    --white-transparent: rgba(255, 255, 255, 0.95);
+    --gray-dark: #424242;
+    --gray-light: #e0e0e0;
+
+    /* Colores especiales */
+    --green-tint: #f8fff8;
+    --green-light-bg: #f1f8e9;
+    --green-quote-bg: #f9fff9;
+    --green-accent: #326334;
+
+    /* Errores */
+    --error-red: #f44336;
+    --error-red-dark: #d32f2f;
+    --error-red-darker: #c62828;
+
+    /* Sombras */
+    --shadow-light: 0 4px 20px rgba(76, 175, 80, 0.3);
+    --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+    --shadow-table: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    /* Bordes */
+    --border-green: 1px solid rgba(76, 175, 80, 0.2);
+    --border-green-solid: 1px solid var(--primary-green-lighter);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    color: var(--primary-green-darker);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    padding: 40px 0;
+    background: var(--header-gradient);
+    margin: -20px -20px 40px -20px;
+    color: var(--white);
+    border-radius: 0 0 20px 20px;
+    box-shadow: var(--shadow-light);
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+#content {
+    background: var(--white-transparent);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-medium);
+    backdrop-filter: blur(10px);
+    border: var(--border-green);
+    transition: all 0.3s ease;
+}
+
+#content:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    flex-direction: column;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--primary-green-lighter);
+    border-top: 4px solid var(--primary-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    color: var(--primary-green-dark);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.error {
+    background: var(--error-gradient);
+    border: 2px solid var(--error-red);
+    border-radius: 10px;
+    padding: 30px;
+    color: var(--error-red-darker);
+}
+
+.error h3 {
+    color: var(--error-red-dark);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.error p {
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.error ul {
+    margin-left: 20px;
+}
+
+.error li {
+    margin-bottom: 8px;
+}
+
+/* Estilos para el contenido markdown */
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+    color: var(--primary-green-darker);
+    margin: 25px 0 15px 0;
+    font-weight: 600;
+}
+
+#content h1 {
+    font-size: 2.5rem;
+    border-bottom: 3px solid var(--primary-green);
+    padding-bottom: 10px;
+}
+
+#content h2 {
+    font-size: 2rem;
+    color: var(--primary-green-dark);
+}
+
+#content h3 {
+    font-size: 1.5rem;
+    color: var(--green-accent);
+}
+
+#content p {
+    margin-bottom: 16px;
+    color: var(--gray-dark);
+}
+
+#content ul,
+#content ol {
+    margin: 15px 0 15px 30px;
+    color: var(--gray-dark);
+}
+
+#content li {
+    margin-bottom: 8px;
+}
+
+#content code {
+    background: var(--primary-green-lightest);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: var(--primary-green-darker);
+    border: var(--border-green-solid);
+}
+
+#content pre {
+    background: var(--green-light-bg);
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    border-left: 4px solid var(--primary-green);
+    margin: 20px 0;
+}
+
+#content pre code {
+    background: none;
+    padding: 0;
+    border: none;
+}
+
+#content blockquote {
+    border-left: 4px solid var(--primary-green);
+    background: var(--green-quote-bg);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--primary-green-darker);
+}
+
+#content a {
+    color: var(--primary-green-dark);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#content a:hover {
+    color: var(--primary-green-darker);
+    border-bottom-color: var(--primary-green);
+}
+
+#content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-table);
+}
+
+#content th {
+    background: var(--primary-green);
+    color: var(--white);
+    padding: 15px;
+    font-weight: 600;
+    text-align: left;
+}
+
+#content td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+#content tr:nth-child(even) {
+    background: var(--green-tint);
+}
+
+#content tr:hover {
+    background: var(--primary-green-lightest);
+    transition: background 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .header p {
+        font-size: 1rem;
+    }
+
+    #content {
+        padding: 20px;
+    }
+
+    #content h1 {
+        font-size: 2rem;
+    }
+}
+
+.hide {
+    display: none;
+}

@@ -1,6 +1,9 @@
+
 # 🤖 Explainable Artificial Intelligence
 
 ## From Simple Predictors to Complex Generative Models
+
+<!-- BODY -->
 
 > Ver. 2026, [FAMAF-UNC](https://www.famaf.unc.edu.ar/)
 
