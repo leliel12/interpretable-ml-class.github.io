@@ -5,11 +5,11 @@
 
 <!-- BODY -->
 
-> Version. 2026, [FAMAF-UNC](https://www.famaf.unc.edu.ar/)
+> [Version. 2026](https://github.com/leliel12/xai/tree/2026), [FAMAF-UNC](https://www.famaf.unc.edu.ar/)
 
 # Links:
 
-- [Course Program 📚 (**Tentativo**)](https://github.com/leliel12/xai/xai_course_program.md)
+- [Course Program 📚 (**Tentativo**)](https://github.com/leliel12/xai/blob/2026/xai_course_program.md)
 - [Repository 📦](https://github.com/leliel12/xai/)
 
 # Overview: 🧉
