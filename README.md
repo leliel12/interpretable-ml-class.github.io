@@ -9,7 +9,7 @@
 
 # Links:
 
-- [Course Program 📚 (**Tentativo**)](xai_syllabus.md)
+- [Course Program 📚 (**Tentativo**)](https://github.com/leliel12/xai/xai_course_program.md)
 - [Repository 📦](https://github.com/leliel12/xai/)
 
 # Overview: 🧉
@@ -38,7 +38,7 @@ Strong knowledge of machine learning, linear algebra, multivariable calculus, an
 
 \[ [Slides 1](slides/Lecture_1.pptx) | [Slides 2](slides/Lecture_2.pptx) \]
 
-
+---
 
 ## Week 2: Human Factors in Explainability
 
