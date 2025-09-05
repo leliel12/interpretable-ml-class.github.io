@@ -1,3 +1,11 @@
+"""
+Pandoc Markdown to PDF Compiler with Watch Mode
+
+This module provides functionality to compile Markdown files to PDF using Pandoc
+with Beamer template, including file watching capabilities and Unicode character
+replacement.
+"""
+
 import os
 import contextlib
 import time
@@ -7,9 +15,7 @@ import tempfile
 
 import sh
 
-PANDOC_CMD_TEMPLATE = sh.Command("pandoc").bake(
-    t="beamer"
-)
+PANDOC_CMD_TEMPLATE = sh.Command("pandoc").bake(t="beamer")
 
 REPLACES = {
     "≠": r"$\neq$",
@@ -18,6 +24,25 @@ REPLACES = {
 
 @contextlib.contextmanager
 def chdir(newdir):
+    """
+    Context manager to temporarily change the working directory.
+
+    Parameters
+    ----------
+    newdir : str
+        Path to the new directory to change to.
+
+    Yields
+    ------
+    None
+        Control is yielded while in the new directory.
+
+    Examples
+    --------
+    >>> with chdir('/tmp'):
+    ...     print(os.getcwd())
+    /tmp
+    """
     prevdir = os.getcwd()
     os.chdir(os.path.expanduser(newdir))
     try:
@@ -27,6 +52,19 @@ def chdir(newdir):
 
 
 def get_parser():
+    """
+    Create and configure the command line argument parser.
+
+    Returns
+    -------
+    argparse.ArgumentParser
+        Configured argument parser with all required arguments and options.
+
+    Examples
+    --------
+    >>> parser = get_parser()
+    >>> args = parser.parse_args(['file.md', '--watch'])
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "archivo",
@@ -41,12 +79,8 @@ def get_parser():
         type=float,
         default=1.5,
     )
-    parser.add_argument(
-        "-w", "--watch", help="watch mode", action="store_true", default=False
-    )
-    parser.add_argument(
-        "-i", "--ignore_error", action="store_false", default=True
-    )
+    parser.add_argument("-w", "--watch", help="watch mode", action="store_true", default=False)
+    parser.add_argument("-i", "--ignore_error", action="store_false", default=True)
     parser.add_argument(
         "--cd",
         help="cambiar al directorio del archivo",
@@ -57,15 +91,88 @@ def get_parser():
 
 
 def read_file(path):
+    """
+    Read the contents of a file.
+
+    Parameters
+    ----------
+    path : str
+        Path to the file to read.
+
+    Returns
+    -------
+    str
+        Contents of the file as a string.
+
+    Raises
+    ------
+    FileNotFoundError
+        If the specified file does not exist.
+    IOError
+        If there's an error reading the file.
+
+    Examples
+    --------
+    >>> content = read_file('example.md')
+    >>> print(len(content))
+    1234
+    """
     with open(path, "r") as f:
         return f.read()
 
 
 def calculate_md5(src):
+    """
+    Calculate the MD5 hash of a string.
+
+    Parameters
+    ----------
+    src : str
+        The source string to hash.
+
+    Returns
+    -------
+    str
+        MD5 hash as a hexadecimal string.
+
+    Examples
+    --------
+    >>> hash_value = calculate_md5("Hello World")
+    >>> print(len(hash_value))
+    32
+    """
     return hashlib.md5(src.encode("utf-8")).hexdigest()
 
 
 def process_unicode(src, fname, tempdir):
+    """
+    Process Unicode characters in source content and save to temporary file.
+
+    This function replaces specific Unicode characters with their LaTeX equivalents
+    and writes the processed content to a temporary file.
+
+    Parameters
+    ----------
+    src : str
+        Source content to process.
+    fname : str
+        Original filename to use for the temporary file.
+    tempdir : str
+        Path to the temporary directory where the processed file will be saved.
+
+    Returns
+    -------
+    str
+        Path to the processed temporary file.
+
+    Examples
+    --------
+    >>> with tempfile.TemporaryDirectory() as tmpdir:
+    ...     processed_path = process_unicode("a ≠ b", "test.md", tmpdir)
+    ...     with open(processed_path) as f:
+    ...         print(f.read())
+    a $\neq$ b
+    """
     output = os.path.join(tempdir, fname)
     for pattern, replace in REPLACES.items():
         src = src.replace(pattern, replace)
@@ -76,6 +183,32 @@ def process_unicode(src, fname, tempdir):
 
 
 def run_pandoc(path, output_path, ignore_error):
+    """
+    Execute Pandoc command to convert Markdown to PDF.
+
+    Parameters
+    ----------
+    path : str
+        Path to the input Markdown file.
+    output_path : str
+        Path where the output PDF should be saved.
+    ignore_error : bool
+        Whether to ignore Pandoc errors and continue execution.
+
+    Returns
+    -------
+    sh.RunningCommand or None
+        Pandoc command result if successful, None if error was ignored.
+
+    Raises
+    ------
+    sh.ErrorReturnCode
+        If Pandoc execution fails and ignore_error is False.
+
+    Examples
+    --------
+    >>> run_pandoc("input.md", "output.pdf", ignore_error=True)
+    """
     pandoc = PANDOC_CMD_TEMPLATE.bake(path, output=output_path)
     try:
         return pandoc()
@@ -90,6 +223,24 @@ def run_pandoc(path, output_path, ignore_error):
 
 
 def main():
+    """
+    Main function that orchestrates the Markdown to PDF compilation process.
+
+    This function handles command line argument parsing, file monitoring,
+    and coordinates the compilation process. It supports both single compilation
+    and watch mode for continuous compilation on file changes.
+
+    The function performs the following steps:
+    1. Parse command line arguments
+    2. Set up working directory and file paths
+    3. Process the initial file and compile to PDF
+    4. If in watch mode, monitor file for changes and recompile as needed
+
+    Examples
+    --------
+    Run from command line:
+    $ python script.py document.md --watch --sleep 2.0
+    """
     parser = get_parser()
 
     args = parser.parse_args()

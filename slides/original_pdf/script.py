@@ -1,3 +1,22 @@
+'''
+Procesa archivos de presentaciones (.pptx y .pdf) de un directorio de entrada a uno de salida.
+
+Este script automatiza la tarea de consolidar archivos de presentaciones en un único 
+directorio. Realiza las siguientes acciones:
+  - Busca recursivamente o no archivos con extensión .pdf y .pptx.
+  - Copia directamente los archivos .pdf encontrados al directorio de destino.
+  - Convierte los archivos .pptx a formato .pdf utilizando LibreOffice y los guarda
+    en el directorio de destino.
+  - Maneja colisiones de nombres de archivo agregando un sufijo numérico.
+
+Dependencias:
+  - Python 3.x
+  - Librería 'sh' de Python (`pip install sh`).
+  - Una instalación funcional de LibreOffice accesible desde la línea de comandos.
+
+Uso:
+  python script.py --input <directorio_entrada> --output <directorio_salida> [--recursive] [--verbose]
+'''
 import argparse
 import os
 from pathlib import Path
