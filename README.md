@@ -1,9 +1,13 @@
 
-# 🤖 Explainable Artificial Intelligence
+# 🤌 Explainable Artificial Intelligence
 
 ## From Simple Predictors to Complex Generative Models
 
 <!-- BODY -->
+
+<center>
+<img src="assets/logo.jpeg" style="width: auto;  max-height: 20em; text-align: center" alt="Logo">
+</center>
 
 > [Version. 2026](https://github.com/leliel12/xai/tree/2026), [FAMAF-UNC](https://www.famaf.unc.edu.ar/)
 
