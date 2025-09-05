@@ -1,7 +1,7 @@
 ---
-title: "Explainable AI"
+title: "\\emoji{wtf} Explainable Artificial Intelligence"
 subtitle: "Understanding the Foundations and Motivations"
-author: "XAI Course - Lecture 1"
+author: "FAMAF - UNC"
 date: \today
 fontsize: 12pt
 theme: "Boadilla"
@@ -18,7 +18,9 @@ header-includes:
   - \setbeamercolor{block title}{bg=lightgreen,fg=white}
   - \setbeamercolor{block body}{bg=lightgreen!20}
   - \usepackage{graphicx}
-  - \newcommand{\wtf}[1]{"\textbf{#1} \raisebox{-0.1ex}{\includegraphics[height=0.8em]{../emojis/wtf.png}}"}
+  - \titlegraphic{\includegraphics[width=4cm]{../../assets/logo.png}}
+  - \newcommand{\emoji}[1]{\raisebox{-0.1ex}{\includegraphics[height=0.8em]{../emojis/#1}}}
+  - \newcommand{\wtf}[1]{"\textbf{#1} \emoji{wtf}"}
 
 ---
 
